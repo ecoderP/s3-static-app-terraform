@@ -5,19 +5,16 @@ variable "project_name" {
 variable "environment" {
   type = string
 }
-
+variable "aws_region" {
+  type = string
+}
+variable "website_bucket_name" {
+  type = string
+}
 variable "github_repo" {
   type = string
 }
 
 variable "github_branch" {
-  type = string
-}
-
-variable "bucket_arn" {
-  type = string
-}
-
-variable "cloudfront_distribution_arn" {
   type = string
 }

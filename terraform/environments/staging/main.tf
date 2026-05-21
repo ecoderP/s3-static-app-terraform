@@ -12,7 +12,7 @@ module "cloudfront" {
   project_name                = var.project_name
   environment                   = var.environment
   bucket_name                 = module.s3_static_site.bucket_name
-   bucket_arn                  = module.s3_static_site.bucket_arn
+  bucket_arn                  = module.s3_static_site.bucket_arn
   bucket_regional_domain_name = module.s3_static_site.bucket_regional_domain_name
 }
 

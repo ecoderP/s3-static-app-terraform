@@ -1,0 +1,5 @@
+bucket         = "terraform-s3-static-site-states-backend-81b2011b"
+region = "us-east-1"
+key            = "dev/terraform.tfstate"
+encrypt        = true
+use_lockfile   = true 
