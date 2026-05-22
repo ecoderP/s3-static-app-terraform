@@ -56,7 +56,7 @@ resource "aws_iam_policy" "deploy_policy" {
 
     Statement = [
       {
-        sid = "S3ObjectAccess"
+        Sid = "S3ObjectAccess"
         Effect = "Allow"
 
         Action = [
@@ -69,7 +69,7 @@ resource "aws_iam_policy" "deploy_policy" {
       },
 
       {
-        sid = "S3BucketListAccess"
+        Sid = "S3BucketListAccess"
         Effect = "Allow"
 
         Action = [
@@ -80,14 +80,14 @@ resource "aws_iam_policy" "deploy_policy" {
       },
 
       {
-        sid = "CloudFrontInvalidation"
+        Sid = "CloudFrontInvalidation"
         Effect = "Allow"
 
         Action = [
           "cloudfront:CreateInvalidation"
         ]
 
-        Resource = var.cloudfront_distribution_arn
+        Resource = "*"
       }
     ]
   })

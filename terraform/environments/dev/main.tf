@@ -1,16 +1,16 @@
 module "s3_static_site" {
   source = "../../modules/s3-static-site"
 
-  bucket_name                 = var.website_bucket_name
+  bucket_name = var.website_bucket_name
 
-  environment                   = var.environment
+  environment = var.environment
 }
 
 module "cloudfront" {
   source = "../../modules/cloudfront"
 
   project_name                = var.project_name
-  environment                   = var.environment
+  environment                 = var.environment
   bucket_name                 = module.s3_static_site.bucket_name
   bucket_arn                  = module.s3_static_site.bucket_arn
   bucket_regional_domain_name = module.s3_static_site.bucket_regional_domain_name
