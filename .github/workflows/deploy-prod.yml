@@ -21,7 +21,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: S3-STATIC-APP
+        working-directory: S3-STATIC-APP/dist
 
     steps:
       - uses: actions/checkout@v4
