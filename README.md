@@ -1,14 +1,3 @@
-terraform init -migrate-state -backend-config=dev.tfbackend
-terraform init -reconfigure -backend-config=dev.tfbackend
-
-# Just commenting random stuff for debugging
-
-- name: Debug GitHub Context
-  run: |
-  echo "Repository: ${{ github.repository }}"
-  echo "Ref: ${{ github.ref }}"
-  echo "Environment: prod"
-
 # 🚀 Terraform S3 Static App Project ( Reusable and Self-bootstrapping)
 
 A **reusable, self-bootstrapping infrastructure template** for deploying modern **React (Vite) static applications** to AWS using:
@@ -50,7 +39,7 @@ This system provisions and connects:
 
 ---
 
-## 📁 Project Structure
+## 📁 Project Structure (Typical)
 
 ```
 .
@@ -61,9 +50,9 @@ This system provisions and connects:
 ├── index.html                    # Vite entry HTML file
 ├── package.json + other configs  # Project dependencies and scripts
 │
-├── terraform/                    # Infrastructure as Code (Terraform) directory
+├── terraform/                    # Infrastructure as Code (Terraform)
 │   │
-│   ├── bootstrap/                # One-time setup (state backend, foundational resource)
+│   ├── bootstrap/                # One-time setup (state backend, foundational resources)
 │   │
 │   ├── modules/                  # Reusable Terraform modules
 │   │   │
