@@ -39,7 +39,7 @@ This system provisions and connects:
 
 ---
 
-## 📁 Project Structure (Typical)
+## 📁 Project Structure
 
 ```
 .
@@ -50,9 +50,9 @@ This system provisions and connects:
 ├── index.html                    # Vite entry HTML file
 ├── package.json + other configs  # Project dependencies and scripts
 │
-├── terraform/                    # Infrastructure as Code (Terraform)
+├── terraform/                    # Infrastructure as Code (Terraform) directory
 │   │
-│   ├── bootstrap/                # One-time setup (state backend, foundational resources)
+│   ├── bootstrap/                # One-time setup (state backend, foundational resource)
 │   │
 │   ├── modules/                  # Reusable Terraform modules
 │   │   │
@@ -79,6 +79,8 @@ This system provisions and connects:
 
 ## ⚡ Features
 
+This project was built with:
+
 - Fully automated CI/CD pipeline (GitHub Actions)
 - Secure AWS authentication using OIDC (no long-lived AWS keys)
 - Environment-based deployments (dev / staging / prod)
@@ -94,7 +96,7 @@ This system provisions and connects:
 Before using this project, ensure you have:
 
 - AWS Account
-- Terraform ≥ 1.10+
+- Terraform ≥ 1.10+ (Required for S3 file lock feature introduced in v.1.10. enabling file lock in S3 allows us to lock our state file without the need for DynamoDB + S3 lock feature which is being deprecated by AWS)
 - Node.js ≥ 20+
 - GitHub repository
 - AWS CLI configured (for local testing)
@@ -111,20 +113,16 @@ git clone https://github.com/ecoderP/s3-static-app-terraform.git
 
 ### Before you continue, Please note:
 
-- I have preset customisable terraform variables in .tfvarsexample.
+- There are preset customisable terraform variables in .tfvarsexample.
 - Terraform state backend configurations are in .tfbackendexample files.
 
-I named these this way to bypass .gitignore, because git will ignore all .tfvars and .tfbackend files. You will need to rename .tfvarsexample and .tfbackendexample to .tfvars and .tfbackend extensions respectively.
+These are so named to bypass .gitignore. Gitgnore will ignore all .tfvars and .tfbackend files for security. You will need to rename .tfvarsexample and .tfbackendexample to .tfvars and .tfbackend extensions respectively.
 
-For example, for bootstrap/ directory:
+For example, for terraform/bootstrap/ directory, update configuration settings, then:
 
 ```
 cd terraform/bootstrap
-```
 
-After updating your AWS region, project name and your unique bucket name:
-
-```
 cp terraform.tfvarsbackendexample terraform.tfvars
 ```
 
@@ -140,7 +138,8 @@ terraform init
 **_Important:_** Copy the bucket name from terminal output. This is the shared backend state bucket name for all environments. Use this output as bucket name in .tfbackend for all environments.
 
 4. Configure environment
-   Each environment (dev/staging/prod) has its own configuration. Locate .tfbackend and .tfvars configuration files, personalise and rename for each environment.
+
+Each environment (dev/staging/prod) has its own configuration. Locate .tfbackend and .tfvars configuration files, personalise and rename for each environment.
 
 ```
 cd terraform/environments/dev
@@ -165,7 +164,9 @@ terraform apply -auto-approve
 This project uses GitHub Actions → AWS OIDC federation, meaning:
 
 ✔ No AWS access keys stored in GitHub
+
 ✔ Temporary credentials issued per workflow run
+
 ✔ Least-privilege IAM roles scoped per environment
 
 ### IAM Role Trust Relationship
@@ -186,18 +187,19 @@ This project includes GitHub Actions workflows for:
 
 ### 🧪 Dev Deployment
 
-- Trigger: push to develop
+- Trigger: push to dev
 - Deploys to dev S3 bucket + CloudFront
 
 ### 🧱 Staging Deployment
 
 - Trigger: push to staging
+- Deploys to staging S3 bucket + CloudFront
 - Used for pre-production validation
 
 ### 🚀 Production Deployment
 
 - Trigger: push to main
-- Deploys stable build to production environment
+- Deploys stable build to production environment (S3 + CloudFront)
 
 ### CI/CD Flow
 
@@ -210,13 +212,13 @@ This project includes GitHub Actions workflows for:
 
 ### Important GitHub Actions secrets
 
-To get your ci/cd pipeline working, add the following environment secrets to GitHub Actions:
+To get your CI/CD pipeline working, add the following environment secrets to GitHub Actions:
 
 - S3_BUCKET
 - CLOUDFRONT_DISTRIBUTION_ID
 - AWS_ROLE_ARN
 
-To get the values for your project, from each environment directory (dev, staging, prod), run:
+To get the values for your secrets, from each environment directory (dev, staging, prod), run:
 
 ```
 terraform output
@@ -224,7 +226,7 @@ terraform output
 
 ---
 
-## ♻️ How to Re-use This Project (Important)
+## ♻️ Re-using This Project (Some Viable Options)
 
 This repo is designed as a starter backend infrastructure for any React + Vite frontend project.
 
