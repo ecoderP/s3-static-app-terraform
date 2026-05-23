@@ -1,4 +1,4 @@
-name: Deploy Dev
+name: Deploy to Staging
 
 on:
   push:
@@ -9,6 +9,10 @@ permissions:
   id-token: write
   contents: read
 
+concurrency:
+  group: staging-deployment
+  cancel-in-progress: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -17,7 +21,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: vite-app
+        working-directory: .
 
     steps:
       - uses: actions/checkout@v4
@@ -25,22 +29,27 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
 
-      - run: npm install
+      - name: Install dependencies and build
+        run: npm ci
 
-      - run: npm run test -- --run
+      - name: Build application
+        run: npm run build
 
-      - run: npm run build
-
-      - uses: aws-actions/configure-aws-credentials@v4
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: us-east-1
 
-      - run: |
+      - name: Sync files to S3
+        run: |
           aws s3 sync dist/ s3://${{ secrets.S3_BUCKET }} --delete
 
-      - run: |
+      - name: Invalidate CloudFront distribution
+        run: |
           aws cloudfront create-invalidation \
             --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
             --paths "/*"
