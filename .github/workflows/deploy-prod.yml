@@ -21,7 +21,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: s3-static-app
+        working-directory: s3-static-app-terraform
 
     steps:
       - uses: actions/checkout@v4
@@ -30,7 +30,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: s3-static-app/package-lock.json
+          cache-dependency-path: s3-static-app-terraform/package-lock.json
 
       - name: Install dependencies and build
         run: npm ci
