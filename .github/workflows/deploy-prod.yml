@@ -21,7 +21,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: S3-STATIC-APP
+        working-directory: .
 
     steps:
       - uses: actions/checkout@v4
@@ -30,7 +30,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: S3-STATIC-APP/package-lock.json
+          cache-dependency-path: package-lock.json
 
       - name: Install dependencies and build
         run: npm ci
