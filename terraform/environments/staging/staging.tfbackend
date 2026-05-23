@@ -1,4 +1,4 @@
-bucket         = "terraform-s3-static-site-states-backend-81b2011b"
+bucket         = "s3-static-app-terraform-tfstate-backend-81b2011b"
 key            = "staging/terraform.tfstate"
 region         = "us-east-1"
 encrypt        = true
