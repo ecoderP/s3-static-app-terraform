@@ -1,0 +1,5 @@
+bucket         = "Your bootstrap backend state bucket name"
+region          = "Your AWS region"
+key            = "prod/terraform.tfstate"
+encrypt        = true
+use_lockfile   = true  # important for S3 backend state lock

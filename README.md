@@ -39,7 +39,7 @@ This system provisions and connects:
 
 ---
 
-## 📁 Project Structure (Typical)
+## 📁 Project Structure
 
 ```
 .
@@ -50,9 +50,9 @@ This system provisions and connects:
 ├── index.html                    # Vite entry HTML file
 ├── package.json + other configs  # Project dependencies and scripts
 │
-├── terraform/                    # Infrastructure as Code (Terraform)
+├── terraform/                    # Infrastructure as Code (Terraform) directory
 │   │
-│   ├── bootstrap/                # One-time setup (state backend, foundational resources)
+│   ├── bootstrap/                # One-time setup (state backend, foundational resource)
 │   │
 │   ├── modules/                  # Reusable Terraform modules
 │   │   │
@@ -88,7 +88,6 @@ This project was built with:
 - Reusable Terraform modules for multi-project usage
 - Production-ready S3 security configuration
 - Clean separation of infrastructure and frontend build
-- Remote state backend with state locking
 
 ---
 
@@ -265,16 +264,32 @@ Just change:
 - S3 bucket is private by default
 - CloudFront serves as the only public entry point
 - IAM follows least privilege principle
-- GitHub Actions uses short-lived credentials (OIDC)
-- No hardcoded secrets in repo
 
 ---
 
-## 📈 Lessons Learned
+## 🧱 Infrastructure Teardown
 
-- Add custom domain + Route53 automation
-- ACM SSL certificate provisioning
-- Automated performance testing in CI
+1. From each environment directory (dev, staging and prod), run the command:
+
+```
+terraform destroy -auto-approve
+```
+
+Do this for all environments.
+
+2. From the terraform **_bootstrap_** directory, run the command:
+
+```
+terraform destroy -auto-approve
+
+```
+
+3. Optional, but can do: List all AWS buckets in your account and confirmbuckets are not listed. Run the command:
+
+```
+aws s3 ls
+
+```
 
 ---
 
@@ -387,6 +402,12 @@ Writing reusable setup instructions and architecture explanations can improve:
 
 ---
 
-## 👨‍💻 Author
+## 📈 Future Improvements
 
-Built and Maintained by [ecoderP](https://github.com/ecoderP)
+- Add custom domain + Route53 automation
+- ACM SSL certificate provisioning
+- Automated performance testing in CI
+
+---
+
+## 👨‍💻 Author
