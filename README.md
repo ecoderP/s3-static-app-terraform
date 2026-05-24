@@ -293,6 +293,115 @@ aws s3 ls
 
 ---
 
+## 📚 Lessons Learned
+
+### 1. Infrastructure Modularity Matters Early
+
+Breaking infrastructure into reusable Terraform modules made the project significantly easier to maintain and scale across environments.
+
+Separating:
+
+- S3 configuration
+- CloudFront setup
+- IAM/OIDC authentication
+
+allowed infrastructure changes to be isolated without affecting the entire stack.
+
+### 2. OIDC Authentication Is More Secure Than Long-Lived AWS Keys
+
+Using GitHub OIDC federation eliminated the need to store AWS access keys in GitHub Secrets.
+
+This project provided hands-on experience with:
+
+- IAM trust policies
+- federated authentication
+- least-privilege access design
+
+and highlighted modern cloud security best practices.
+
+### 3. Environment Isolation Prevents Deployment Drift
+
+Separating dev, staging, and production infrastructure reduced accidental cross-environment changes and improved deployment confidence.
+
+This also made testing infrastructure changes safer before promoting them to production.
+
+### 4. Terraform State Management Requires Planning
+
+Managing Terraform state becomes increasingly important as infrastructure grows.
+
+This project reinforced:
+
+- the importance of remote state backends
+- state locking
+- consistent environment structure
+- predictable resource naming conventions
+
+### 5. CI/CD Pipelines Are Infrastructure Too
+
+A deployment pipeline should be treated as part of the infrastructure rather than an afterthought.
+
+Automating:
+
+- builds
+- deployments
+- authentication
+- CloudFront invalidations
+
+improved reliability and reduced manual deployment errors.
+
+### 6. Small AWS Misconfigurations Can Cause Large Failures
+
+Minor IAM or bucket policy mistakes can completely break deployments.
+
+Troubleshooting issues such as:
+
+- AccessDenied errors
+- incorrect OIDC trust relationships
+- CloudFront origin permissions
+- S3 bucket policy conflicts
+
+helped build deeper AWS troubleshooting skills.
+
+### 7. Reusability Requires Intentional Design
+
+Making a project reusable is not automatic.
+
+It required:
+
+- parameterized Terraform variables
+- environment abstraction
+- clean module boundaries
+- predictable naming conventions
+
+This project reinforced the importance of designing for reuse from the beginning rather than trying to fix it later.
+
+### 8. Production Infrastructure Requires Both Security and Automation
+
+A working deployment is not necessarily production-ready.
+
+This project highlighted the balance between:
+
+- security
+- scalability
+- automation
+- maintainability
+- developer experience
+
+when building real-world cloud infrastructure.
+
+### 9. Documentation Is Part of Engineering
+
+Clear documentation became essential as the project grew in complexity.
+
+Writing reusable setup instructions and architecture explanations can improve:
+
+- onboarding
+- maintainability
+- troubleshooting
+- long-term project usability
+
+---
+
 ## 📈 Future Improvements
 
 - Add custom domain + Route53 automation
