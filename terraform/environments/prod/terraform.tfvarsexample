@@ -1,0 +1,6 @@
+aws_region          = "Your AWS region"
+project_name        = "Project name"
+website_bucket_name = "Your unique bucket name"
+github_repo         = "Your github username/repo name"     # Not web link
+github_branch       = "prod"
+environment         = "prod"

@@ -1,0 +1,6 @@
+aws_region          = "Your AWS region"
+project_name        = "Project name"
+website_bucket_name = "Your unique bucket name"             # unique for each environment
+github_repo         = "Your github username/repo name"     # Not web link
+github_branch       = "staging"
+environment         = "staging"
