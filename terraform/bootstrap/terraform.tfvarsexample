@@ -1,0 +1,4 @@
+aws_region              = "Your AWS region"
+project_name            = "Your project name"
+backend_bucket_name     = "Your unique bucket name"
+s3_encryption_algorithm = "AES256" # Default to SSE-S3
