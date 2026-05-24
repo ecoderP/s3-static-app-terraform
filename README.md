@@ -264,8 +264,32 @@ Just change:
 - S3 bucket is private by default
 - CloudFront serves as the only public entry point
 - IAM follows least privilege principle
-- GitHub Actions uses short-lived credentials (OIDC)
-- No hardcoded secrets in repo
+
+---
+
+## 🧱 Infrastructure Teardown
+
+1. From each environment directory (dev, staging and prod), run the command:
+
+```
+terraform destroy -auto-approve
+```
+
+Do this for all environments.
+
+2. From the terraform **_bootstrap_** directory, run the command:
+
+```
+terraform destroy -auto-approve
+
+```
+
+3. Optional, but can do: List all AWS buckets in your account and confirmbuckets are not listed. Run the command:
+
+```
+aws s3 ls
+
+```
 
 ---
 
