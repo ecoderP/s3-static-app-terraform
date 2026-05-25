@@ -98,6 +98,7 @@ Before using this project, ensure you have:
 - AWS Account
 - Terraform ≥ 1.10+ (Required for S3 file lock feature introduced in v.1.10. enabling file lock in S3 allows us to lock our state file without the need for DynamoDB + S3 lock feature which is being deprecated by AWS)
 - Node.js ≥ 20+
+- Terminal for running commands (Bash recommended)
 - GitHub repository
 - AWS CLI configured (for local testing)
 
@@ -109,6 +110,16 @@ Before using this project, ensure you have:
 
 ```
 git clone https://github.com/ecoderP/s3-static-app-terraform.git
+```
+
+2. Install Frontend Dependencies and build
+
+After cloning the repository, install project dependencies, then run the _npm build command_. from the project root directory, run:
+
+```
+npm ci
+
+npm run build
 ```
 
 ### Before you continue, Please note:
@@ -126,7 +137,7 @@ cd terraform/bootstrap
 mv terraform.tfvarsbackendexample terraform.tfvars
 ```
 
-2. In the terraform/bootstrap folder
+3. In the terraform/bootstrap folder
 
 - Personalise variables
 - Initialise terraform
