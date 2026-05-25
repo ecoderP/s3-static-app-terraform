@@ -264,6 +264,23 @@ Just change:
 - S3 bucket is private by default
 - CloudFront serves as the only public entry point
 - IAM follows least privilege principle
+- In in _main.tf_ file inside _terraform/bootstrap_,
+
+```
+lifecycle {
+    prevent_destroy = false
+  }
+```
+
+is set to _false_ for easy clean-up. In real production environments, I would set _prevent_destroy_ as _true_. This protects the remote state bucket from accidental data loss.
+
+In addition,
+
+```
+force_destroy = true
+```
+
+should be deleted or set as _false_ in real production environments.
 
 ---
 
@@ -406,6 +423,7 @@ Writing reusable setup instructions and architecture explanations can improve:
 
 - Add custom domain + Route53 automation
 - ACM SSL certificate provisioning
+- Integrate terraform into CI/CD pipeline
 - Automated performance testing in CI
 
 ---
