@@ -35,8 +35,10 @@ resource "aws_s3_bucket" "terraform_state" {
   bucket = "${var.project_name}-${var.backend_bucket_name}-${random_id.suffix.hex}"
 
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
   }
+
+  force_destroy = true
 
   tags = {
     Name        = "${var.project_name}-terraform-backend"
