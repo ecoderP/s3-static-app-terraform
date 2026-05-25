@@ -123,7 +123,7 @@ For example, for terraform/bootstrap/ directory, update configuration settings, 
 ```
 cd terraform/bootstrap
 
-cp terraform.tfvarsbackendexample terraform.tfvars
+mv terraform.tfvarsbackendexample terraform.tfvars
 ```
 
 2. In the terraform/bootstrap folder
@@ -139,12 +139,12 @@ terraform init
 
 4. Configure environment
 
-Each environment (dev/staging/prod) has its own configuration. Locate .tfbackend and .tfvars configuration files, personalise and rename for each environment.
+Each environment (dev/staging/prod) has its own configuration. Locate .tfbackend and .tfvars configuration files, personalise and rename for each environment. For example, for dev environment:
 
 ```
 cd terraform/environments/dev
 
-cp dev.tfbackendexample dev.tfbackend
+mv dev.tfbackendexample dev.tfbackend
 
 terraform init -backend-config=dev.tfbackend
 ```
